@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cloud Services — Portal Access</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <style>
+    /* ==========================================================
+       RESET & BASE STYLING
+       ========================================================== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 24px;
+      /* Cloud Services Background Image with subtle dark overlay */
+      background: linear-gradient(rgba(10, 17, 30, 0.65), rgba(10, 17, 30, 0.75)),
+                  url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1920&q=80') no-repeat center center / cover;
+      background-attachment: fixed;
+      color: #f1f5f9;
+    }
+
+    /* ==========================================================
+       MINIMAL GLASSMORPHIC FORM CONTAINER
+       ========================================================== */
+    .form-card {
+      width: 100%;
+      max-width: 440px;
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 20px;
+      padding: 36px 32px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      animation: fadeIn 0.8s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(15px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ==========================================================
+       HEADER & BADGE
+       ========================================================== */
+    .form-header {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+
+    .cloud-icon {
+      width: 52px;
+      height: 52px;
+      margin: 0 auto 14px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #38bdf8;
+      font-size: 1.4rem;
+    }
+
+    .form-header h2 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #ffffff;
+      letter-spacing: -0.02em;
+      margin-bottom: 6px;
+    }
+
+    .form-header p {
+      font-size: 0.88rem;
+      color: #94a3b8;
+    }
+
+    /* ==========================================================
+       INPUT GROUPS
+       ========================================================== */
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: #cbd5e1;
+      margin-bottom: 7px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .input-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .input-wrapper i {
+      position: absolute;
+      left: 14px;
+      color: #94a3b8;
+      font-size: 0.95rem;
+      pointer-events: none;
+      transition: color 0.2s ease;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    select {
+      width: 100%;
+      padding: 12px 14px 12px 42px;
+      background: rgba(15, 23, 42, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 10px;
+      color: #ffffff;
+      font-size: 0.95rem;
+      outline: none;
+      transition: all 0.25s ease;
+    }
+
+    input::placeholder {
+      color: #64748b;
+    }
+
+    input:focus,
+    select:focus {
+      background: rgba(15, 23, 42, 0.7);
+      border-color: #38bdf8;
+      box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.18);
+    }
+
+    .input-wrapper:focus-within i {
+      color: #38bdf8;
+    }
+
+    select {
+      cursor: pointer;
+      appearance: none;
+      -webkit-appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%2394a3b8' viewBox='0 0 24 24'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      background-size: 18px;
+    }
+
+    select option {
+      background-color: #0f172a;
+      color: #f1f5f9;
+    }
+
+    /* ==========================================================
+       CHECKBOX & ACTIONS
+       ========================================================== */
+    .form-options {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 18px 0 24px;
+      font-size: 0.84rem;
+      color: #94a3b8;
+    }
+
+    .checkbox-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      user-select: none;
+      text-transform: none;
+      letter-spacing: normal;
+      margin-bottom: 0;
+      color: #cbd5e1;
+    }
+
+    .checkbox-label input[type="checkbox"] {
+      accent-color: #38bdf8;
+      width: 16px;
+      height: 16px;
+      cursor: pointer;
+    }
+
+    .forgot-link {
+      color: #38bdf8;
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .forgot-link:hover {
+      text-decoration: underline;
+      color: #7dd3fc;
+    }
+
+    /* ==========================================================
+       MINIMAL BUTTON
+       ========================================================== */
+    .btn-submit {
+      width: 100%;
+      padding: 13px;
+      background: #38bdf8;
+      color: #04101e;
+      border: none;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .btn-submit:hover {
+      background: #7dd3fc;
+      transform: translateY(-1px);
+      box-shadow: 0 8px 20px -4px rgba(56, 189, 248, 0.4);
+    }
+
+    .btn-submit:active {
+      transform: translateY(0);
+    }
+
+    /* ==========================================================
+       FOOTER NOTE
+       ========================================================== */
+    .form-footer {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 0.84rem;
+      color: #94a3b8;
+    }
+
+    .form-footer a {
+      color: #38bdf8;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .form-footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="form-card">
+    <!-- Header -->
+    <div class="form-header">
+      <div class="cloud-icon">
+        <i class="fa-solid fa-cloud"></i>
+      </div>
+      <h2>Cloud Access Portal</h2>
+      <p>Deploy and manage your cloud infrastructure</p>
+    </div>
+
+    <!-- Form -->
+    <form action="#" method="post">
+      <!-- Workspace Name -->
+      <div class="form-group">
+        <label for="workspace">Workspace Name</label>
+        <div class="input-wrapper">
+          <i class="fa-solid fa-server"></i>
+          <input type="text" id="workspace" name="workspace" placeholder="e.g. production-cluster" required />
+        </div>
+      </div>
+
+      <!-- Account Email -->
+      <div class="form-group">
+        <label for="email">Cloud Account Email</label>
+        <div class="input-wrapper">
+          <i class="fa-solid fa-envelope"></i>
+          <input type="email" id="email" name="email" placeholder="admin@organization.com" required />
+        </div>
+      </div>
+
+      <!-- Cloud Region -->
+      <div class="form-group">
+        <label for="region">Preferred Region</label>
+        <div class="input-wrapper">
+          <i class="fa-solid fa-globe"></i>
+          <select id="region" name="region" required>
+            <option value="" disabled selected>Select deployment region</option>
+            <option value="us-east">US East (N. Virginia)</option>
+            <option value="us-west">US West (Oregon)</option>
+            <option value="eu-central">EU Central (Frankfurt)</option>
+            <option value="ap-south">Asia Pacific (Mumbai)</option>
+            <option value="ap-southeast">Asia Pacific (Singapore)</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Access Key / Password -->
+      <div class="form-group">
+        <label for="password">Access Secret Key</label>
+        <div class="input-wrapper">
+          <i class="fa-solid fa-key"></i>
+          <input type="password" id="password" name="password" placeholder="••••••••••••" required />
+        </div>
+      </div>
+
+      <!-- Remember & Forgot -->
+      <div class="form-options">
+        <label class="checkbox-label">
+          <input type="checkbox" name="remember" />
+          <span>Keep session active</span>
+        </label>
+        <a href="#" class="forgot-link">Reset key?</a>
+      </div>
+
+      <!-- Submit Button -->
+      <button type="submit" class="btn-submit">
+        <span>Connect to Cloud</span>
+        <i class="fa-solid fa-arrow-right"></i>
+      </button>
+
+      <!-- Footer Note -->
+      <div class="form-footer">
+        Need a dedicated cloud instance? <a href="#">Create account</a>
+      </div>
+    </form>
+  </div>
+
+</body>
+</html>
